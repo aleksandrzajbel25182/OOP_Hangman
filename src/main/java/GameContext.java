@@ -104,16 +104,15 @@ public class GameContext {
     public abstract class State {
 
         public void execute() {
+
             this.executeImpl();
-            if (!equals(this.getStateInfo())) {
-                System.out.println(this.getStateInfo());
-            }
+            this.getStateInfo();
 
         }
 
         public abstract void executeImpl();
 
-        public abstract String getStateInfo();
+        public abstract void getStateInfo();
     }
 
     private class StartState extends State {
@@ -129,9 +128,28 @@ public class GameContext {
         }
 
         @Override
-        public String getStateInfo() {
-            return "Добро пожаловать в Виселицу";
+        public void getStateInfo() {
+
+            System.out.println("Добро пожаловать в Виселицу");
         }
+    }
+
+    private class CheckClass extends State {
+        @Override
+        public void executeImpl() {
+            if (charUserList.contains(userAnswer)) {
+                state = new UserInputState();
+            } else {
+                charUserList.add(userAnswer);
+                state = new CheckCharUser();
+            }
+        }
+
+        @Override
+        public void getStateInfo() {
+
+        }
+
     }
 
     private class EndState extends State {
@@ -142,8 +160,7 @@ public class GameContext {
         }
 
         @Override
-        public String getStateInfo() {
-            return "";
+        public void getStateInfo() {
         }
 
     }
@@ -157,8 +174,7 @@ public class GameContext {
         }
 
         @Override
-        public String getStateInfo() {
-            return null;
+        public void getStateInfo() {
         }
     }
 
@@ -184,22 +200,21 @@ public class GameContext {
         }
 
         @Override
-        public String getStateInfo() {
-            return null;
+        public void getStateInfo() {
         }
-
     }
 
     private class LoseAttemptState extends State {
 
         @Override
         public void executeImpl() {
+
             state = new PrintHangman();
         }
 
         @Override
-        public String getStateInfo() {
-            return "Извините такой буквы нету в слове!";
+        public void getStateInfo() {
+            System.out.println("Извините такой буквы нету в слове!");
         }
     }
 
@@ -211,8 +226,8 @@ public class GameContext {
         }
 
         @Override
-        public String getStateInfo() {
-            return "Да, буква " + userAnswer + " имется в слове";
+        public void getStateInfo() {
+            System.out.println("Да, буква " + userAnswer + " имется в слове");
         }
     }
 
@@ -223,8 +238,8 @@ public class GameContext {
         }
 
         @Override
-        public String getStateInfo() {
-            return "Поздравляем с победой";
+        public void getStateInfo() {
+            System.out.println("Поздравляем с победой");
         }
     }
 
@@ -235,8 +250,8 @@ public class GameContext {
         }
 
         @Override
-        public String getStateInfo() {
-            return "Тебя повесили. Слово было: " + randomWord.toString();
+        public void getStateInfo() {
+            System.out.println("Тебя повесили. Слово было: " + randomWord.toString());
         }
     }
 
@@ -246,13 +261,15 @@ public class GameContext {
         public void executeImpl() {
             if (charUserList.contains(userAnswer)) {
                 state = new UserInputState();
+                System.out.println("Вы уже вводили такую букву");
+            } else {
+                charUserList.add(userAnswer);
+                state = new CheckCharUser();
             }
-            state = new CheckCharUser();
         }
 
         @Override
-        public String getStateInfo() {
-            return "\nВы уже вводили такую букву";
+        public void getStateInfo() {
         }
     }
 
@@ -264,9 +281,9 @@ public class GameContext {
         }
 
         @Override
-        public String getStateInfo() {
+        public void getStateInfo() {
 
-            return "\nНа данный момент слово выглядит так: " + maskWord + "\nВведите свое предположение: ";
+            System.out.println("\nНа данный момент слово выглядит так: " + maskWord + "\nВведите свое предположение: ");
         }
     }
 
@@ -278,8 +295,8 @@ public class GameContext {
         }
 
         @Override
-        public String getStateInfo() {
-            return "Вы использовали следующие буквы: " + Arrays.toString(charUserList.toArray());
+        public void getStateInfo() {
+            System.out.println("Вы использовали следующие буквы: " + Arrays.toString(charUserList.toArray()));
         }
     }
 
@@ -299,8 +316,9 @@ public class GameContext {
         }
 
         @Override
-        public String getStateInfo() {
-            return hangman[wrong];
+        public void getStateInfo() {
+
+            System.out.println(hangman[wrong]);
         }
     }
 }
