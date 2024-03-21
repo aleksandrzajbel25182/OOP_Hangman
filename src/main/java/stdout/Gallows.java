@@ -81,7 +81,8 @@ public class Gallows {
 """
     };
 
-    public static String getGallows(int index) {
+    public String getGallow(int index) {
         return gallows[index];
     }
 }
+

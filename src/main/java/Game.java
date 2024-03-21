@@ -1,59 +1,80 @@
 import stdin.CharSource;
-import stdout.Hangman;
-import stdout.StdoutGallows;
+import stdout.Answer;
+import stdout.Gallows;
+import stdout.AttemptsHangman;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Game {
 
     // загаданное слово
     final private String word;
-    //попытки
-    private StringBuilder guess;
-
     private CharSource source;
-
-    private Hangman hangman;
-
+    private AttemptsHangman attemptsHangman;
     private StringBuilder maskWord;
+    private Answer answer;
+    private Gallows gallow;
+    private ArrayList<Character> playerCharList = new ArrayList<>();
 
-    private ArrayList<Character> playerChar = new ArrayList<>();
-
-    public Game(CharSource source, Hangman hangman, String word) {
+    public Game(CharSource source, AttemptsHangman attemptsHangman, String word, Answer answer) {
         this.source = source;
-        this.hangman = hangman;
+        this.attemptsHangman = attemptsHangman;
         this.word = word;
-        this.guess = new StringBuilder();
+        this.answer = answer;
         this.maskWord = new StringBuilder("_".repeat(word.length()));
+        this.gallow = new Gallows();
     }
 
+    public boolean getStateGame() {
+        return stateGame;
+    }
+
+    private boolean stateGame = false;
+
     public boolean play() {
-        while (!this.hangman.hasDied() && !this.isMatch()) {
+        stateGame = true;
+        while (this.attemptsHangman.hasDied() && !this.isMatch()) {
+            //собираем сообщение
+            this.answer.buildAnswer(this.gallow.getGallow(this.attemptsHangman.getAttempts()) // висилица
+                    + "\nВы использоватли следующие буквы: " + Arrays.toString(playerCharList.toArray()) // использованные буквы
+                    + "=\nНа данный момент слово выглядит так: " + this.maskWord //маска слова
+                    + "\nВведите свое предположение:");  //маска слова
+
+            // stdin User
             var userAnswer = this.source.nextChar();
-            var defaultmask = maskWord;
-            for (int i = 0; i < word.length(); i++) {
-                if (charWordMatch(userAnswer, word, i))
-                    maskWord.setCharAt(i, userAnswer);
-            }
-            if (!defaultmask.equals(maskWord)) {
-                hangman.registerAttempts();
-                playerChar.add(userAnswer);
+            // check duplicate
+            if (!playerCharList.contains(userAnswer)) {
+                var defaultMask = maskWord;
+                // check char user for compliance word
+                for (int i = 0; i < word.length(); i++) {
+                    if (charWordMatch(userAnswer, word, i))
+                        maskWord.setCharAt(i, userAnswer);
+                }
+                if (!defaultMask.equals(maskWord)) {
+                    // register attempts
+                    attemptsHangman.registerAttempts();
+                    playerCharList.add(userAnswer);
+                    this.answer.buildAnswer("Извините, такой буквы в слове нету");
+                } else {
+                    answer.buildAnswer("Да такая буква имеется ");
+                }
             } else {
-                //print
+                this.answer.buildAnswer("Вы уже вводили такую букву");
             }
-
-
+            this.answer.printAnswer();
         }
-
-        return this.isMatch();
+        stateGame = this.isMatch();
+        return stateGame;
     }
 
     private boolean isMatch() {
-        return this.guess.toString().equals(this.word);
+        return this.maskWord.toString().equals(this.word);
     }
 
     private boolean charWordMatch(char ch, String str, int index) {
         return str.charAt(index) == ch;
     }
+
 
 }
