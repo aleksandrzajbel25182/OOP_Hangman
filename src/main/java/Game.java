@@ -64,8 +64,8 @@ public class Game {
     private boolean isMatch() {
         return this.maskWord.toString().equals(this.word);
     }
+
     private boolean charWordMatch(char ch, String str, int index) {
         return str.charAt(index) == ch;
     }
-
 }

@@ -1,7 +1,7 @@
 package stdout;
 
 public interface Hagman {
+    void registerAttempts();
 
-     void registerAttempts();
-     boolean hasDied();
+    boolean hasDied();
 }
