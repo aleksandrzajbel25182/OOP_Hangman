@@ -13,10 +13,7 @@ public class Application {
             var hangman = new AttemptsHangman();
             var game = new Game(charSource, hangman, word, answer);
 
-
             var hasWon = game.play();
-
-            System.out.println(answer.printAnswer());
 
             if (hasWon) {
                 System.out.println("Win");

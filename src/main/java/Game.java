@@ -26,55 +26,46 @@ public class Game {
         this.gallow = new Gallows();
     }
 
-    public boolean getStateGame() {
-        return stateGame;
-    }
-
-    private boolean stateGame = false;
-
     public boolean play() {
-        stateGame = true;
         while (this.attemptsHangman.hasDied() && !this.isMatch()) {
             //собираем сообщение
-            this.answer.buildAnswer(this.gallow.getGallow(this.attemptsHangman.getAttempts()) // висилица
-                    + "\nВы использоватли следующие буквы: " + Arrays.toString(playerCharList.toArray()) // использованные буквы
-                    + "=\nНа данный момент слово выглядит так: " + this.maskWord //маска слова
+            this.answer.printAnswer(this.gallow.getGallow(this.attemptsHangman.getAttempts()) // висилица
+                    + "\nВы использоватли следующие буквы: " + Arrays.toString(this.playerCharList.toArray()) // использованные буквы
+                    + "\nНа данный момент слово выглядит так: " + this.maskWord //маска слова
                     + "\nВведите свое предположение:");  //маска слова
 
             // stdin User
             var userAnswer = this.source.nextChar();
             // check duplicate
-            if (!playerCharList.contains(userAnswer)) {
-                var defaultMask = maskWord;
+            if (!this.playerCharList.contains(userAnswer)) {
+                var defaultMask = this.maskWord;
                 // check char user for compliance word
-                for (int i = 0; i < word.length(); i++) {
-                    if (charWordMatch(userAnswer, word, i))
-                        maskWord.setCharAt(i, userAnswer);
+                for (int i = 0; i < this.word.length(); i++) {
+                    if (charWordMatch(userAnswer, this.word, i))
+                        this.maskWord.setCharAt(i, userAnswer);
                 }
-                if (!defaultMask.equals(maskWord)) {
+                if (defaultMask.equals(this.maskWord)) {
                     // register attempts
-                    attemptsHangman.registerAttempts();
-                    playerCharList.add(userAnswer);
-                    this.answer.buildAnswer("Извините, такой буквы в слове нету");
+                    this.attemptsHangman.registerAttempts();
+                    this.playerCharList.add(userAnswer);
+                    this.answer.printAnswer("Извините, такой буквы в слове нету");
+
                 } else {
-                    answer.buildAnswer("Да такая буква имеется ");
+                    this.answer.printAnswer("Да такая буква имеется ");
+                    this.playerCharList.add(userAnswer);
                 }
             } else {
-                this.answer.buildAnswer("Вы уже вводили такую букву");
+                this.answer.printAnswer("Вы уже вводили такую букву");
             }
-            this.answer.printAnswer();
         }
-        stateGame = this.isMatch();
-        return stateGame;
+        return this.isMatch();
     }
 
     private boolean isMatch() {
         return this.maskWord.toString().equals(this.word);
     }
-
     private boolean charWordMatch(char ch, String str, int index) {
         return str.charAt(index) == ch;
     }
-
 
 }
