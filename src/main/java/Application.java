@@ -1,10 +1,11 @@
+import Source.WordSource;
 import stdin.StdinCharSource;
 import stdout.AttemptsHangman;
 import stdout.StdoutAnswer;
 
 public class Application {
     public static void main(String[] args) {
-        var wordChoice = new WordChoice();
+        var wordChoice = new WordSource("/word.txt");
         var charSource = new StdinCharSource();
         var answer = new StdoutAnswer();
 
