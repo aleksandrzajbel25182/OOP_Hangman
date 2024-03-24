@@ -5,7 +5,8 @@ import stdout.StdoutAnswer;
 
 public class Application {
     public static void main(String[] args) {
-        var wordChoice = new WordSource("/word.txt");
+        var wordChoice = new WordSource("/words.txt");
+        wordChoice.readerFile();
         var charSource = new StdinCharSource();
         var answer = new StdoutAnswer();
 
