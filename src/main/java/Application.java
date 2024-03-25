@@ -24,8 +24,7 @@ public class Application {
                 System.out.println("Game Over");
             }
 
-            System.out.println("Press 'q' to exit");
-            System.out.println("Press 's' to new Game");
+            System.out.println("Press 'q' to exit or any key to start a new game");
         } while (charSource.nextChar() != 'q');
     }
 }
