@@ -1,9 +1,9 @@
 package Source;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -16,31 +16,32 @@ public class WordSource implements IntputSource {
         this.conection = conection;
         wordList = new ArrayList<>();
     }
-
-    public String RandomWord() {
+    @Override
+    public String randomWord() {
 
         Random random_method = new Random();
         int index = random_method.nextInt(wordList.size());
         return wordList.get(index);
     }
 
-    @Override
-    public ArrayList<String> readerFile() {
-        try (InputStream is = this.getClass().getResourceAsStream(this.conection);
-             InputStreamReader isr = new InputStreamReader(is);
-             BufferedReader br = new BufferedReader(isr)
-        ) {
-            //чтение построчно
-            String str;
-            while ((str = br.readLine()) != null) {
-                wordList.add(str.toLowerCase());
+
+    public void readFile() {
+        BufferedReader reader;
+
+        try {
+            reader = new BufferedReader(new FileReader(this.conection));
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                wordList.add(line.toLowerCase());
             }
 
-            return wordList;
+            reader.close();
 
-        } catch (IOException ex) {
+        } catch (FileNotFoundException e){
+            System.out.println("Error! The file was not found!");
+        } catch (IOException ex ){
             System.out.println(ex.getMessage());
-            return null;
         }
 
     }
