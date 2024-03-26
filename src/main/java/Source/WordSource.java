@@ -1,7 +1,5 @@
 package Source;
 
-import Source.IntputSource;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,12 +34,14 @@ public class WordSource implements IntputSource {
             String str;
             while ((str = br.readLine()) != null) {
                 wordList.add(str.toLowerCase());
-                return wordList;
             }
+
+            return wordList;
+
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
             return null;
         }
-        return null;
+
     }
 }
