@@ -1,4 +1,4 @@
-package stdout;
+package hagman;
 
 public interface Hagman {
     void registerAttempts();

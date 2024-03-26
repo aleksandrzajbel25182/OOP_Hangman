@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 import stdin.CharSource;
 import stdout.Answer;
-import stdout.AttemptsHangman;
+import hagman.AttemptsHangman;
 import stdout.Gallows;
 
 public class Game {

@@ -1,6 +1,6 @@
 import Source.WordSource;
 import stdin.StdinCharSource;
-import stdout.AttemptsHangman;
+import hagman.AttemptsHangman;
 import stdout.StdoutAnswer;
 
 public class Application {

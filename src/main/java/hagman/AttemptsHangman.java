@@ -1,4 +1,4 @@
-package stdout;
+package hagman;
 
 public class AttemptsHangman implements Hagman {
 
