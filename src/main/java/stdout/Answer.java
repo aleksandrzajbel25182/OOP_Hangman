@@ -1,5 +1,6 @@
 package stdout;
 
 public interface Answer {
-    void printAnswer(String message);
+
+  void printAnswer(String message);
 }

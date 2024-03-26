@@ -1,9 +1,10 @@
 package stdout;
 
 public class Gallows {
-    private static final String[] gallows = new String[]{
 
-            """
+  private static final String[] gallows = new String[]{
+
+      """
      ------
      |    |
      |
@@ -14,7 +15,7 @@ public class Gallows {
     ----------\
 """,
 
-            """
+      """
      ------
      |    |
      |    O
@@ -25,7 +26,7 @@ public class Gallows {
     ----------\
 """,
 
-            """
+      """
      ------
      |    |
      |    O
@@ -36,7 +37,7 @@ public class Gallows {
     ----------\
 """,
 
-            """
+      """
      ------
      |    |
      |    O
@@ -47,7 +48,7 @@ public class Gallows {
     ----------\
 """,
 
-            """
+      """
      ------
      |    |
      |    O
@@ -58,7 +59,7 @@ public class Gallows {
     ----------\
 """,
 
-            """
+      """
      ------
      |    |
      |    O
@@ -69,7 +70,7 @@ public class Gallows {
     ----------\
 """,
 
-            """
+      """
      ------
      |    |
      |    O
@@ -79,10 +80,10 @@ public class Gallows {
      |  \s
     ----------\
 """
-    };
+  };
 
-    public String getGallow(int index) {
-        return gallows[index];
-    }
+  public String getGallow(int index) {
+    return gallows[index];
+  }
 }
 

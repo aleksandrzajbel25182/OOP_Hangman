@@ -9,40 +9,44 @@ import java.util.Random;
 
 public class WordSource implements IntputSource {
 
-    private String conection;
-    private ArrayList<String> wordList;
+  private String conection;
 
-    public WordSource(String conection) {
-        this.conection = conection;
-        wordList = new ArrayList<>();
+  private ArrayList<String> wordList;
+
+  public WordSource(String conection) {
+    this.conection = conection;
+    wordList = new ArrayList<>();
+  }
+
+  @Override
+  public String randomWord() {
+
+    Random random_method = new Random();
+    int index = random_method.nextInt(wordList.size());
+    return wordList.get(index);
+
+  }
+
+
+  public void readFile() {
+
+    BufferedReader reader;
+
+    try {
+
+      reader = new BufferedReader(new FileReader(this.conection));
+      String line;
+
+      while ((line = reader.readLine()) != null) {
+        wordList.add(line.toLowerCase());
+      }
+
+      reader.close();
+
+    } catch (FileNotFoundException e) {
+      System.out.println("Error! The file was not found!");
+    } catch (IOException ex) {
+      System.out.println(ex.getMessage());
     }
-    @Override
-    public String randomWord() {
-
-        Random random_method = new Random();
-        int index = random_method.nextInt(wordList.size());
-        return wordList.get(index);
-    }
-
-
-    public void readFile() {
-        BufferedReader reader;
-
-        try {
-            reader = new BufferedReader(new FileReader(this.conection));
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                wordList.add(line.toLowerCase());
-            }
-
-            reader.close();
-
-        } catch (FileNotFoundException e){
-            System.out.println("Error! The file was not found!");
-        } catch (IOException ex ){
-            System.out.println(ex.getMessage());
-        }
-
-    }
+  }
 }

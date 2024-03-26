@@ -1,32 +1,32 @@
 import Source.WordSource;
-import stdin.StdinCharSource;
 import hagman.AttemptsHangman;
+import stdin.StdinCharSource;
 import stdout.StdoutAnswer;
 
 public class Application {
-    public static void main(String[] args) {
-        var wordChoice = new WordSource("src/main/resources/words.txt");
-        wordChoice.readFile();
-        var charSource = new StdinCharSource();
-        var answer = new StdoutAnswer();
 
-        do {
-            var word = wordChoice.randomWord();
-            var hangman = new AttemptsHangman();
-            var game = new Game(charSource, hangman, word, answer);
+  public static void main(String[] args) {
+    var wordChoice = new WordSource("src/main/resources/words.txt");
+    wordChoice.readFile();
+    var charSource = new StdinCharSource();
+    var answer = new StdoutAnswer();
 
-            var hasWon = game.play();
+    do {
+      var word = wordChoice.randomWord();
+      var hangman = new AttemptsHangman();
+      var game = new Game(charSource, hangman, word, answer);
 
-            if (hasWon) {
-                System.out.println("Win");
-            } else {
+      var hasWon = game.play();
 
-                System.out.println("Game Over");
-            }
+      if (hasWon) {
+        System.out.println("Win");
+      } else {
+        System.out.println("Game Over");
+      }
 
-            System.out.println("Press 'q' to exit or any key to start a new game");
-        } while (charSource.nextChar() != 'q');
-    }
+      System.out.println("Press 'q' to exit or any key to start a new game");
+    } while (charSource.nextChar() != 'q');
+  }
 }
 
 
