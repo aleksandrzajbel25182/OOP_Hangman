@@ -1,8 +1,17 @@
+/**
+ * @autor Alexander Zaybel
+ * @version 1.1
+ */
+
 import Source.WordSource;
 import hagman.AttemptsHangman;
 import stdin.StdinCharSource;
 import stdout.StdoutAnswer;
 
+
+/**
+ * The client application
+ */
 public class Application {
 
   public static void main(String[] args) {
