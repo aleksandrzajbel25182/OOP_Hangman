@@ -80,7 +80,7 @@ public class Game {
       this.answer.print(message);
 
       var userAnswer = this.source.nextChar();
-      if (!checkDuplicate(userAnswer)) {
+      if (!isDuplicate(userAnswer)) {
         continue;
       }
 
@@ -138,12 +138,12 @@ public class Game {
   /**
    * The method of checking if the character has been used before
    *
-   * @param ch The character to check
+   * @param hasChar The character to check
    * @return Returns true if the character has not been used before, false otherwise
    */
-  private boolean checkDuplicate(char ch) {
+  private boolean isDuplicate(char hasChar) {
 
-    if (!this.usedChar.contains(ch)) {
+    if (!this.usedChar.contains(hasChar)) {
       return true;
     } else {
       this.answer.print("Вы уже вводили такую букву");
