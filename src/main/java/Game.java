@@ -3,8 +3,7 @@
  * @version 1.1
  */
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import stdin.CharSource;
 import stdout.Answer;
 import stdout.Gallows;
@@ -45,7 +44,10 @@ public class Game {
    */
   private Gallows gallow;
 
-  private ArrayList<Character> playerCharList = new ArrayList<>();
+  /**
+   * Characters used by the user
+   */
+  private HashSet<Character> usedChar = new HashSet<>();
 
   private int attempt = 0;
 
@@ -71,7 +73,7 @@ public class Game {
 
       //Message Assembly
       String message = this.gallow.getGallow(this.attempt)
-          + "\nВы использоватли следующие буквы: " + Arrays.toString(this.playerCharList.toArray())
+          + "\nВы использоватли следующие буквы: " + this.usedChar.toString()
           + "\nНа данный момент слово выглядит так: " + this.maskWord
           + "\nВведите свое предположение:";
 
@@ -85,15 +87,16 @@ public class Game {
       if (!checkCharWord(userAnswer)) {
 
         this.registerAttempt();
-        this.playerCharList.add(userAnswer);
+        this.usedChar.add(userAnswer);
         this.answer.print("Извините, такой буквы в слове нету");
 
       } else {
 
         this.answer.print("Да такая буква имеется ");
-        this.playerCharList.add(userAnswer);
+        this.usedChar.add(userAnswer);
 
       }
+
     }
 
     return this.isMatch();
@@ -140,7 +143,7 @@ public class Game {
    */
   private boolean checkDuplicate(char ch) {
 
-    if (!this.playerCharList.contains(ch)) {
+    if (!this.usedChar.contains(ch)) {
       return true;
     } else {
       this.answer.print("Вы уже вводили такую букву");
