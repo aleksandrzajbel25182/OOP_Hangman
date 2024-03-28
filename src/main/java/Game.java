@@ -111,14 +111,14 @@ public class Game {
   /**
    * The method of checking a character in a word
    *
-   * @param ch Проверяемый символ
+   * @param ch The character being checked
    * @return Returns true if the character is in the word, false otherwise
    */
   private boolean checkCharWord(char ch) {
 
     var index = 0;
     boolean flag = false;
-    //Нахождение символа в слове и измениние маски
+    // Finding a character in a word and changing the mask
     while (index > -1) {
       index = this.word.indexOf(ch, index);
 
