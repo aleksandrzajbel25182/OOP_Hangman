@@ -79,7 +79,7 @@ public class Game {
 
       this.answer.print(message);
 
-      var userAnswer = nextChar();
+      var userAnswer = this.source.nextChar();
       if (!checkDuplicate(userAnswer)) {
         continue;
       }
@@ -149,16 +149,6 @@ public class Game {
       this.answer.print("Вы уже вводили такую букву");
       return false;
     }
-  }
-
-  /**
-   * Method to get the next character from the source {@link CharSource#nextChar()
-   *
-   * @return The next character
-   * @see CharSource#nexChar()
-   */
-  private Character nextChar() {
-    return this.source.nextChar();
   }
 
   /**
