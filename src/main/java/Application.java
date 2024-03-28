@@ -23,7 +23,7 @@ public class Application {
     do {
       var word = wordChoice.randomWord();
       var hangman = new AttemptsHangman();
-      var game = new Game(charSource, hangman, word, answer);
+      var game = new Game(charSource, word, answer);
 
       var hasWon = game.play();
 

@@ -3,7 +3,6 @@
  * @version 1.1
  */
 
-import hagman.AttemptsHangman;
 import java.util.ArrayList;
 import java.util.Arrays;
 import stdin.CharSource;
@@ -22,14 +21,14 @@ public class Game {
   final private String word;
 
   /**
+   * The constant of the maximum allowed attempts
+   */
+  private final static int MAX_ATTEMPT = 6;
+
+  /**
    * User's input source
    */
   private CharSource source;
-
-  /**
-   * Attempts user
-   */
-  private AttemptsHangman attemptsHangman;
 
   /**
    * The mask of the hidden word in the form of "____"
@@ -48,13 +47,14 @@ public class Game {
 
   private ArrayList<Character> playerCharList = new ArrayList<>();
 
+  private int attempt = 0;
+
   /**
-   * Creates a new Game, taking into account the {@link CharSource}, attempts
-   * {@link AttemptsHangman}, the hidden {@link Game#word}, the {@link Answer} for the user
+   * Creates a new Game, taking into account the {@link CharSource}, the hidden {@link Game#word},
+   * the {@link Answer} for the user
    */
-  public Game(CharSource source, AttemptsHangman attemptsHangman, String word, Answer answer) {
+  public Game(CharSource source, String word, Answer answer) {
     this.source = source;
-    this.attemptsHangman = attemptsHangman;
     this.word = word;
     this.answer = answer;
     this.maskWord = new StringBuilder("_".repeat(word.length()));
@@ -67,10 +67,10 @@ public class Game {
    * @return Returns the result of the game in the form of truth or false
    */
   public boolean play() {
-    while (this.attemptsHangman.hasDied() && !this.isMatch()) {
+    while (this.gameOver() && !this.isMatch()) {
 
       //Message Assembly
-      String message = this.gallow.getGallow(this.attemptsHangman.getAttempts())
+      String message = this.gallow.getGallow(this.attempt)
           + "\nВы использоватли следующие буквы: " + Arrays.toString(this.playerCharList.toArray())
           + "\nНа данный момент слово выглядит так: " + this.maskWord
           + "\nВведите свое предположение:";
@@ -84,7 +84,7 @@ public class Game {
 
       if (!checkCharWord(userAnswer)) {
 
-        this.attemptsHangman.registerAttempts();
+        this.registerAttempt();
         this.playerCharList.add(userAnswer);
         this.answer.print("Извините, такой буквы в слове нету");
 
@@ -157,4 +157,22 @@ public class Game {
   private Character nextChar() {
     return this.source.nextChar();
   }
+
+  /**
+   * Register attempt.
+   */
+  public void registerAttempt() {
+    this.attempt++;
+  }
+
+  /**
+   * This method checks if the game is over by comparing the current number of attempts with the
+   * maximum number of attempts allowed.
+   *
+   * @return Returns True if the current attempt does not exceed the maximum value, False otherwise
+   */
+  public boolean gameOver() {
+    return this.attempt < MAX_ATTEMPT;
+  }
+
 }
