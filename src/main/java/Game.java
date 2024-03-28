@@ -71,7 +71,7 @@ public class Game {
   public boolean play() {
     while (this.gameOver() && !this.isMatch()) {
 
-      //Message Assembly
+      // Message Assembly
       String message = this.gallow.getGallow(this.attempt)
           + "\nВы использоватли следующие буквы: " + this.usedChar.toString()
           + "\nНа данный момент слово выглядит так: " + this.maskWord
@@ -80,26 +80,31 @@ public class Game {
       this.answer.print(message);
 
       var userAnswer = this.source.nextChar();
+
       if (!isDuplicate(userAnswer)) {
-        continue;
-      }
 
-      if (!hasWordChar(userAnswer)) {
+        if (!hasWordChar(userAnswer)) {
 
-        this.registerAttempt();
+          this.registerAttempt();
+          this.answer.print("Извините, такой буквы в слове нету");
+
+        } else {
+
+          this.answer.print("Да такая буква имеется ");
+
+        }
+
         this.usedChar.add(userAnswer);
-        this.answer.print("Извините, такой буквы в слове нету");
 
       } else {
 
-        this.answer.print("Да такая буква имеется ");
-        this.usedChar.add(userAnswer);
+        this.answer.print("Вы уже вводили такую букву");
 
       }
-
     }
 
     return this.isMatch();
+
   }
 
   /**
@@ -146,7 +151,6 @@ public class Game {
     if (!this.usedChar.contains(hasChar)) {
       return true;
     } else {
-      this.answer.print("Вы уже вводили такую букву");
       return false;
     }
   }
