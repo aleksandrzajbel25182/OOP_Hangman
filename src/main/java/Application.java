@@ -4,7 +4,6 @@
  */
 
 import Source.WordSource;
-import hagman.AttemptsHangman;
 import stdin.StdinCharSource;
 import stdout.StdoutAnswer;
 
@@ -22,8 +21,7 @@ public class Application {
 
     do {
       var word = wordChoice.randomWord();
-      var hangman = new AttemptsHangman();
-      var game = new Game(charSource, word, answer);
+           var game = new Game(charSource, word, answer);
 
       var hasWon = game.play();
 
