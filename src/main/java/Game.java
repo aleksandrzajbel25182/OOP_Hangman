@@ -84,7 +84,7 @@ public class Game {
         continue;
       }
 
-      if (!checkCharWord(userAnswer)) {
+      if (!hasWordChar(userAnswer)) {
 
         this.registerAttempt();
         this.usedChar.add(userAnswer);
@@ -114,19 +114,19 @@ public class Game {
   /**
    * The method of checking a character in a word
    *
-   * @param ch The character being checked
+   * @param hasChar The character being checked
    * @return Returns true if the character is in the word, false otherwise
    */
-  private boolean checkCharWord(char ch) {
+  private boolean hasWordChar(char hasChar) {
 
     var index = 0;
     boolean flag = false;
     // Finding a character in a word and changing the mask
     while (index > -1) {
-      index = this.word.indexOf(ch, index);
+      index = this.word.indexOf(hasChar, index);
 
       if (index != -1) {
-        this.maskWord.setCharAt(index, ch);
+        this.maskWord.setCharAt(index, hasChar);
         index++;
         flag = true;
       }
