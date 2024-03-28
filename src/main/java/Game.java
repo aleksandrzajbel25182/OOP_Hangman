@@ -82,29 +82,20 @@ public class Game {
       var userAnswer = this.source.nextChar();
 
       if (!isDuplicate(userAnswer)) {
-
         if (!hasWordChar(userAnswer)) {
-
           this.registerAttempt();
           this.answer.print("Извините, такой буквы в слове нету");
 
         } else {
-
           this.answer.print("Да такая буква имеется ");
-
         }
-
-        this.usedChar.add(userAnswer);
-
       } else {
-
         this.answer.print("Вы уже вводили такую букву");
-
       }
+      this.usedChar.add(userAnswer);
     }
 
     return this.isMatch();
-
   }
 
   /**
@@ -144,15 +135,10 @@ public class Game {
    * The method of checking if the character has been used before
    *
    * @param hasChar The character to check
-   * @return Returns true if the character has not been used before, false otherwise
+   * @return Returns true if the character was previously used, otherwise false
    */
   private boolean isDuplicate(char hasChar) {
-
-    if (!this.usedChar.contains(hasChar)) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.usedChar.contains(hasChar);
   }
 
   /**
